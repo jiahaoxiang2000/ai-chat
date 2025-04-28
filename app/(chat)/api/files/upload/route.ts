@@ -1,4 +1,5 @@
-import { put } from '@vercel/blob';
+// Import local storage instead of Vercel Blob
+import { put } from '@/lib/local-storage';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -57,9 +58,11 @@ export async function POST(request: Request) {
 
       return NextResponse.json(data);
     } catch (error) {
+      console.error("Error uploading file:", error);
       return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
     }
   } catch (error) {
+    console.error("Error processing request:", error);
     return NextResponse.json(
       { error: 'Failed to process request' },
       { status: 500 },
